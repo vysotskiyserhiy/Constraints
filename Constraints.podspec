@@ -9,5 +9,4 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.source_files = 'Constraints/Classes/**/*'
   s.frameworks = 'UIKit'
-  s.swift_version = '4.0'
 end
