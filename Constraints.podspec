@@ -7,6 +7,6 @@ Pod::Spec.new do |s|
   s.author           = { 'Serhiy Vysotskiy' => 'vysotskiyserhiy@gmail.com' }
   s.source           = { :git => 'https://github.com/vysotskiyserhiy/Constraints.git', :tag => s.version.to_s }
   s.ios.deployment_target = '8.0'
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'Constraints/Classes/**/*'
   s.frameworks = 'UIKit'
 end
