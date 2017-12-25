@@ -91,7 +91,7 @@ extension Constraint {
             .pin(.centerY, to: .centerY, of: p, r: .equal, c: c, m: m)
     }
     
-    public func center(in p: UIView, c: (x: CGFloat, y: CGFloat)) -> Constraint {
+    public func center(in p: UIView, c: (x: CGFloat, y: CGFloat) = (0, 0)) -> Constraint {
         return self
             .centerX(in: p, c: c.x)
             .centerY(in: p, c: c.y)
