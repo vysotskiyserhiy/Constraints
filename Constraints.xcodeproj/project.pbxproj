@@ -8,12 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		2A68DAD01FF0F8F7005D3525 /* Constraints.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A68DACE1FF0F8F7005D3525 /* Constraints.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A68DADA1FF0F927005D3525 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68DAD81FF0F926005D3525 /* Constraint.swift */; };
+		2A68DADB1FF0F927005D3525 /* ConstraintsChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68DAD91FF0F926005D3525 /* ConstraintsChain.swift */; };
+		2A68DADD1FF0F946005D3525 /* Constraints.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2A68DADC1FF0F946005D3525 /* Constraints.podspec */; };
+		2A68DAE01FF0F971005D3525 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A68DADE1FF0F971005D3525 /* LICENSE */; };
+		2A68DAE11FF0F971005D3525 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2A68DADF1FF0F971005D3525 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2A68DACB1FF0F8F7005D3525 /* Constraints.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Constraints.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A68DACE1FF0F8F7005D3525 /* Constraints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constraints.h; sourceTree = "<group>"; };
 		2A68DACF1FF0F8F7005D3525 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A68DAD81FF0F926005D3525 /* Constraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
+		2A68DAD91FF0F926005D3525 /* ConstraintsChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintsChain.swift; sourceTree = "<group>"; };
+		2A68DADC1FF0F946005D3525 /* Constraints.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Constraints.podspec; sourceTree = "<group>"; };
+		2A68DADE1FF0F971005D3525 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2A68DADF1FF0F971005D3525 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,10 +56,31 @@
 		2A68DACD1FF0F8F7005D3525 /* Constraints */ = {
 			isa = PBXGroup;
 			children = (
+				2A68DAD71FF0F918005D3525 /* Classes */,
+				2A68DAD61FF0F903005D3525 /* Other */,
+			);
+			path = Constraints;
+			sourceTree = "<group>";
+		};
+		2A68DAD61FF0F903005D3525 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				2A68DADE1FF0F971005D3525 /* LICENSE */,
+				2A68DADF1FF0F971005D3525 /* README.md */,
+				2A68DADC1FF0F946005D3525 /* Constraints.podspec */,
 				2A68DACE1FF0F8F7005D3525 /* Constraints.h */,
 				2A68DACF1FF0F8F7005D3525 /* Info.plist */,
 			);
-			path = Constraints;
+			name = Other;
+			sourceTree = "<group>";
+		};
+		2A68DAD71FF0F918005D3525 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2A68DAD81FF0F926005D3525 /* Constraint.swift */,
+				2A68DAD91FF0F926005D3525 /* ConstraintsChain.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,6 +126,7 @@
 				TargetAttributes = {
 					2A68DACA1FF0F8F7005D3525 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -121,6 +153,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A68DAE11FF0F971005D3525 /* README.md in Resources */,
+				2A68DAE01FF0F971005D3525 /* LICENSE in Resources */,
+				2A68DADD1FF0F946005D3525 /* Constraints.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +166,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A68DADB1FF0F927005D3525 /* ConstraintsChain.swift in Sources */,
+				2A68DADA1FF0F927005D3525 /* Constraint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +290,7 @@
 		2A68DAD41FF0F8F7005D3525 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -263,9 +301,10 @@
 				INFOPLIST_FILE = Constraints/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vysotskiyserhiy.Constraints;
+				PRODUCT_BUNDLE_IDENTIFIER = vysotskiyserhiy.constraints;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -274,6 +313,7 @@
 		2A68DAD51FF0F8F7005D3525 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -284,7 +324,7 @@
 				INFOPLIST_FILE = Constraints/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vysotskiyserhiy.Constraints;
+				PRODUCT_BUNDLE_IDENTIFIER = vysotskiyserhiy.constraints;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;

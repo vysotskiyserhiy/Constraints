@@ -3,7 +3,7 @@
 //  Constraints
 //
 //  Created by Serhiy Vysotskiy on 12/25/17.
-//  Copyright © 2017 vysotskiyserhiy. All rights reserved.
+//  Copyright © 2017 Serhiy Vysotskiy. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
