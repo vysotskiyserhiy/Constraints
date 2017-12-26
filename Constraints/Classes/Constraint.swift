@@ -117,6 +117,14 @@ extension Constraint {
         return constraint
     }
     
+    public func inset(insets: UIEdgeInsets) -> Constraint {
+        return self
+            .pin(.left, to: .left, of: superview, c: insets.left)
+            .pin(.right, to: .right, of: superview, c: -insets.right)
+            .pin(.top, to: .top, of: superview, c: insets.top)
+            .pin(.bottom, to: .bottom, of: superview, c: -insets.bottom)
+    }
+    
     public func inset(pad: CGFloat) -> Constraint {
         return self
             .inset(insets: Insets(left: pad, top: pad, right: pad, bottom: pad))
@@ -135,8 +143,4 @@ public struct Insets {
     public let top: CGFloat?
     public let right: CGFloat?
     public let bottom: CGFloat?
-    
-    public static var zero: Insets {
-        return Insets(left: 0, top: 0, right: 0, bottom: 0)
-    }
 }
