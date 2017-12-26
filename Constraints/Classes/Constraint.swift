@@ -22,6 +22,18 @@ public struct Constraint {
     let view: UIView
     let superview: UIView
     public let constraintsChain: ConstraintsChain
+    
+    init(view: UIView, superview: UIView, constraintsChain: ConstraintsChain) {
+        if superview !== view.superview {
+            superview.addSubview(view)
+        }
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view = view
+        self.superview = superview
+        self.constraintsChain = constraintsChain
+    }
 }
 
 // MARK: - Activate/Deactivate constraints
