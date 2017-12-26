@@ -109,17 +109,17 @@ extension Constraint {
             .centerY(in: p, c: c.y)
     }
     
-    public func inset(insets: UIEdgeInsets) -> Constraint {
-        return self
-            .pin(.left, to: .left, of: superview, c: insets.left, m: 1)
-            .pin(.top, to: .top, of: superview, c: insets.top, m: 1)
-            .pin(.right, to: .right, of: superview, c: -insets.right, m: 1)
-            .pin(.bottom, to: .bottom, of: superview, c: -insets.bottom, m: 1)
+    public func inset(insets: Insets) -> Constraint {
+        var constraint = insets.left.map { self.pin(.left, to: .left, of: superview, c: $0, m: 1) } ?? self
+        constraint = insets.top.map { self.pin(.top, to: .top, of: superview, c: $0, m: 1) } ?? constraint
+        constraint = insets.right.map { self.pin(.right, to: .right, of: superview, c: -$0, m: 1) } ?? constraint
+        constraint = insets.bottom.map { self.pin(.bottom, to: .bottom, of: superview, c: -$0, m: 1) } ?? constraint
+        return constraint
     }
     
     public func inset(pad: CGFloat) -> Constraint {
         return self
-            .inset(insets: UIEdgeInsetsMake(pad, pad, pad, pad))
+            .inset(insets: Insets(left: pad, top: pad, right: pad, bottom: pad))
     }
     
     public func frame(_ frame: CGRect) -> Constraint {
@@ -128,4 +128,11 @@ extension Constraint {
             .pin(.left, to: .left, of: superview, c: frame.origin.x)
             .pin(.top, to: .top, of: superview, c: frame.origin.y)
     }
+}
+
+public struct Insets {
+    let left: CGFloat?
+    let top: CGFloat?
+    let right: CGFloat?
+    let bottom: CGFloat?
 }
