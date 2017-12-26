@@ -131,8 +131,8 @@ extension Constraint {
 }
 
 public struct Insets {
-    let left: CGFloat?
-    let top: CGFloat?
-    let right: CGFloat?
-    let bottom: CGFloat?
+    public let left: CGFloat?
+    public let top: CGFloat?
+    public let right: CGFloat?
+    public let bottom: CGFloat?
 }
