@@ -135,4 +135,8 @@ public struct Insets {
     public let top: CGFloat?
     public let right: CGFloat?
     public let bottom: CGFloat?
+    
+    public static var zero: Insets {
+        return Insets(left: 0, top: 0, right: 0, bottom: 0)
+    }
 }
