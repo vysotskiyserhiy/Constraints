@@ -9,7 +9,7 @@
 import UIKit
 
 extension Constraint {
-    public func horizontalAnchor(_ anchor: NSLayoutXAxisAnchor, to anotherAnchor: NSLayoutXAxisAnchor, c: CGFloat = 0) -> Constraint {
+    public func xAnchor(_ anchor: NSLayoutXAxisAnchor, to anotherAnchor: NSLayoutXAxisAnchor, c: CGFloat = 0) -> Constraint {
         constraintsChain.constraints.append(anchor.constraint(equalTo: anotherAnchor, constant: c))
         return self
     }
