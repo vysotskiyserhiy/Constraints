@@ -109,11 +109,11 @@ extension Constraint {
             .centerY(in: p, c: c.y)
     }
     
-    public func inset(insets: Insets) -> Constraint {
-        var constraint = insets.left.map { self.pin(.left, to: .left, of: superview, c: $0, m: 1) } ?? self
-        constraint = insets.top.map { self.pin(.top, to: .top, of: superview, c: $0, m: 1) } ?? constraint
-        constraint = insets.right.map { self.pin(.right, to: .right, of: superview, c: -$0, m: 1) } ?? constraint
-        constraint = insets.bottom.map { self.pin(.bottom, to: .bottom, of: superview, c: -$0, m: 1) } ?? constraint
+    public func inset(left: CGFloat?, top: CGFloat?, right: CGFloat?, bottom: CGFloat?) -> Constraint {
+        var constraint = left.map { self.pin(.left, to: .left, of: superview, c: $0, m: 1) } ?? self
+        constraint = top.map { self.pin(.top, to: .top, of: superview, c: $0, m: 1) } ?? constraint
+        constraint = right.map { self.pin(.right, to: .right, of: superview, c: -$0, m: 1) } ?? constraint
+        constraint = bottom.map { self.pin(.bottom, to: .bottom, of: superview, c: -$0, m: 1) } ?? constraint
         return constraint
     }
     
@@ -125,9 +125,27 @@ extension Constraint {
             .pin(.bottom, to: .bottom, of: superview, c: -insets.bottom)
     }
     
-    public func inset(pad: CGFloat) -> Constraint {
-        return self
-            .inset(insets: Insets(left: pad, top: pad, right: pad, bottom: pad))
+    public func pin(edges: Edge..., c: CGFloat = 0) -> Constraint {
+        guard !edges.isEmpty else {
+            return inset(insets: UIEdgeInsetsMake(c, c, c, c))
+        }
+        
+        return edges.set.reduce(self) {
+            switch $1 {
+            case .left:
+                return $0.pin(.left, to: .left, of: superview, c: c)
+            case .top:
+                return $0.pin(.top, to: .top, of: superview, c: c)
+            case .right:
+                return $0.pin(.right, to: .right, of: superview, c: -c)
+            case .bottom:
+                return $0.pin(.bottom, to: .bottom, of: superview, c: -c)
+            }
+        }
+    }
+    
+    public enum Edge {
+        case left, top, right, bottom
     }
     
     public func frame(_ frame: CGRect) -> Constraint {
@@ -138,9 +156,8 @@ extension Constraint {
     }
 }
 
-public struct Insets {
-    public let left: CGFloat?
-    public let top: CGFloat?
-    public let right: CGFloat?
-    public let bottom: CGFloat?
+extension Array where Element: Hashable {
+    var set: Set<Element> {
+        return Set(self)
+    }
 }
