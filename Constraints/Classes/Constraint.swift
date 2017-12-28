@@ -24,7 +24,7 @@ public struct Constraint {
     public let constraintsChain: ConstraintsChain
     
     init(view: UIView, superview: UIView, constraintsChain: ConstraintsChain) {
-        if superview !== view.superview {
+        if superview !== view.superview, superview !== view {
             superview.addSubview(view)
         }
         
