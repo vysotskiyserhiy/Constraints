@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A31D2971FF501440040D306 /* push.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2A31D2961FF501440040D306 /* push.sh */; };
 		2A68DAD01FF0F8F7005D3525 /* Constraints.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A68DACE1FF0F8F7005D3525 /* Constraints.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A68DADA1FF0F927005D3525 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68DAD81FF0F926005D3525 /* Constraint.swift */; };
 		2A68DADB1FF0F927005D3525 /* ConstraintsChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68DAD91FF0F926005D3525 /* ConstraintsChain.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A31D2961FF501440040D306 /* push.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = push.sh; sourceTree = SOURCE_ROOT; };
 		2A68DACB1FF0F8F7005D3525 /* Constraints.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Constraints.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A68DACE1FF0F8F7005D3525 /* Constraints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constraints.h; sourceTree = "<group>"; };
 		2A68DACF1FF0F8F7005D3525 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				2A68DAE41FF0FB1F005D3525 /* README.md */,
 				2A68DACE1FF0F8F7005D3525 /* Constraints.h */,
 				2A68DACF1FF0F8F7005D3525 /* Info.plist */,
+				2A31D2961FF501440040D306 /* push.sh */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A31D2971FF501440040D306 /* push.sh in Resources */,
 				2A68DAE71FF0FB1F005D3525 /* README.md in Resources */,
 				2A68DAE51FF0FB1F005D3525 /* LICENSE in Resources */,
 				2A68DAE61FF0FB1F005D3525 /* Constraints.podspec in Resources */,
