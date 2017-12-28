@@ -125,7 +125,7 @@ extension Constraint {
             .pin(.bottom, to: .bottom, of: superview, c: -insets.bottom)
     }
     
-    public func pin(edges: Edge..., c: CGFloat = 0) -> Constraint {
+    public func pin(_ edges: Edge..., c: CGFloat = 0) -> Constraint {
         guard !edges.isEmpty else {
             return inset(insets: UIEdgeInsetsMake(c, c, c, c))
         }
