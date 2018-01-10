@@ -19,8 +19,8 @@ public extension UIView {
 }
 
 public struct Constraint {
-    let view: UIView
-    let superview: UIView
+    public let view: UIView
+    public let superview: UIView
     public let constraintsChain: ConstraintsChain
     
     init(view: UIView, superview: UIView, constraintsChain: ConstraintsChain) {
