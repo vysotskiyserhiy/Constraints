@@ -89,6 +89,12 @@ extension Constraint {
             .height(c: size.height, r: r, m: m)
     }
     
+    public func size(width: CGFloat, height: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
+        return self
+            .width(c: width, r: r, m: m)
+            .height(c: height, r: r, m: m)
+    }
+    
     public func square(to side: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
         return size(to: CGSize(width: side, height: side), r: r, m: m)
     }
