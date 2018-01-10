@@ -16,6 +16,10 @@ public extension UIView {
     public func size(_ size: CGSize) -> Constraint {
         return Constraint(view: self, superview: self, constraintsChain: ConstraintsChain()).size(to: size)
     }
+    
+    public func square(_ side: CGFloat) -> Constraint {
+        return size(CGSize(width: side, height: side))
+    }
 }
 
 public struct Constraint {
@@ -91,6 +95,10 @@ extension Constraint {
         return self
             .width(c: size.width, r: r, m: m)
             .height(c: size.height, r: r, m: m)
+    }
+    
+    public func square(to side: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
+        return size(to: CGSize(width: side, height: side), r: r, m: m)
     }
     
     public func centerX(in p: UIView, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
