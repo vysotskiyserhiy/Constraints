@@ -12,14 +12,6 @@ public extension UIView {
     public func constraint(on superview: UIView) -> Constraint {
         return Constraint(view: self, superview: superview, constraintsChain: ConstraintsChain())
     }
-    
-    public func size(_ size: CGSize) -> Constraint {
-        return Constraint(view: self, superview: self, constraintsChain: ConstraintsChain()).size(to: size)
-    }
-    
-    public func square(_ side: CGFloat) -> Constraint {
-        return size(CGSize(width: side, height: side))
-    }
 }
 
 public struct Constraint {
