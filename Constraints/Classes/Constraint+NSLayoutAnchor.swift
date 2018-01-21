@@ -28,22 +28,22 @@ extension Constraint {
 @available(iOS 11.0, *)
 extension Constraint {
     public func safePin(_ edges: Edge..., c: CGFloat = 0) -> Constraint {
-        var edgesChecked = edges
+        var newEdges = edges
         
         if edges.isEmpty {
-            edgesChecked = [.left, .top, .right, .bottom]
+            newEdges = [.left, .top, .right, .bottom]
         }
         
-        return edgesChecked.set.reduce(self) {
+        return newEdges.set.reduce(self) {
             switch $1 {
             case .left:
                 return $0.xAnchor(view.leftAnchor, to: superview.safeAreaLayoutGuide.leftAnchor, c: c)
             case .top:
                 return $0.yAnchor(view.topAnchor, to: superview.safeAreaLayoutGuide.topAnchor, c: c)
             case .right:
-                return $0.xAnchor(view.rightAnchor, to: superview.safeAreaLayoutGuide.rightAnchor, c: c)
+                return $0.xAnchor(view.rightAnchor, to: superview.safeAreaLayoutGuide.rightAnchor, c: -c)
             case .bottom:
-                return $0.yAnchor(view.bottomAnchor, to: superview.safeAreaLayoutGuide.bottomAnchor, c: c)
+                return $0.yAnchor(view.bottomAnchor, to: superview.safeAreaLayoutGuide.bottomAnchor, c: -c)
             }
         }
     }
