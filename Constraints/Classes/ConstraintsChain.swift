@@ -45,7 +45,7 @@ extension ConstraintsChain {
 // MARK: - Constraint conversion
 extension ConstraintsChain {
     public func chain(with other: Constraint) -> Constraint {
-        return Constraint(view: other.view, superview: other.superview, constraintsChain: other.constraintsChain.merged(self))
+        return Constraint(view: other.view, superview: other.superview, constraintsChain: merged(other.constraintsChain))
     }
     
     public func chain(with view: UIView, on superview: UIView) -> Constraint {
