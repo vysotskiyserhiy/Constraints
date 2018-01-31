@@ -99,17 +99,17 @@ extension Constraint {
         return size(to: CGSize(width: side, height: side), r: r, m: m)
     }
     
-    public func centerX(in p: UIView, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
+    public func centerX(in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
         return self
-            .pin(.centerX, to: .centerX, of: p, r: .equal, c: c, m: m)
+            .pin(.centerX, to: .centerX, of: p ?? superview, r: .equal, c: c, m: m)
     }
     
-    public func centerY(in p: UIView, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
+    public func centerY(in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
         return self
-            .pin(.centerY, to: .centerY, of: p, r: .equal, c: c, m: m)
+            .pin(.centerY, to: .centerY, of: p ?? superview, r: .equal, c: c, m: m)
     }
     
-    public func center(in p: UIView, c: (x: CGFloat, y: CGFloat) = (0, 0)) -> Constraint {
+    public func center(in p: UIView? = nil, c: (x: CGFloat, y: CGFloat) = (0, 0)) -> Constraint {
         return self
             .centerX(in: p, c: c.x)
             .centerY(in: p, c: c.y)
