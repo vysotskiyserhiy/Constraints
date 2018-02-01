@@ -8,7 +8,8 @@
 
 /// The very engine for constrainting
 public class ConstraintsChain {
-    var constraints: [NSLayoutConstraint] = []
+    public var constraints: [NSLayoutConstraint] = []
+    public init() {}
 }
 
 // MARK: - Basic pin method
@@ -60,11 +61,16 @@ extension ConstraintsChain {
 
 // MARK: - Convenience constrainting methods
 extension ConstraintsChain {
-    public func centerX(on s: UIView, views vs: [UIView], in p: UIView, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
-        return vs.reduce(self, { $0.pin(on: s, attribute: .centerX, of: $1, to: .centerX, of: p, r: .equal, c: c, m: m) })
+    public func centerX(on s: UIView, views vs: [UIView], in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
+        return vs.reduce(self, { $0.pin(on: s, attribute: .centerX, of: $1, to: .centerX, of: p ?? s, r: .equal, c: c, m: m) })
     }
     
-    public func centerY(on s: UIView, views vs: [UIView], in p: UIView, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
-        return vs.reduce(self, { $0.pin(on: s, attribute: .centerY, of: $1, to: .centerY, of: p, r: .equal, c: c, m: m) })
+    public func centerY(on s: UIView, views vs: [UIView], in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
+        return vs.reduce(self, { $0.pin(on: s, attribute: .centerY, of: $1, to: .centerY, of: p ?? s, r: .equal, c: c, m: m) })
+    }
+    
+    public func center(on s: UIView, views vs: [UIView], in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
+        return centerX(on: s, views: vs, in: p, c: c, m: m)
+            .centerY(on: s, views: vs, in: p, c: c, m: m)
     }
 }
