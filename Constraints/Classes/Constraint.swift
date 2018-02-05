@@ -20,7 +20,7 @@ public class Constraint {
     public let constraintsChain: ConstraintsChain
     public var constraint: NSLayoutConstraint?
     
-    init(view: UIView, superview: UIView, constraintsChain: ConstraintsChain) {
+    init(view: UIView, superview: UIView, constraintsChain: ConstraintsChain, constraint: NSLayoutConstraint? = nil) {
         if superview !== view.superview, superview !== view {
             superview.addSubview(view)
         }
@@ -30,6 +30,7 @@ public class Constraint {
         self.view = view
         self.superview = superview
         self.constraintsChain = constraintsChain
+        self.constraint = constraint
     }
 }
 
@@ -67,8 +68,7 @@ extension Constraint {
 extension Constraint {
     public func pin(_ a1: NSLayoutAttribute, to a2: NSLayoutAttribute, of v2: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
         constraintsChain.pin(on: superview, attribute: a1, of: view, to: a2, of: v2, r: r, c: c, m: m)
-        constraint = constraintsChain.constraints.last
-        return Constraint(view: view, superview: superview, constraintsChain: constraintsChain)
+        return Constraint(view: view, superview: superview, constraintsChain: constraintsChain, constraint: constraintsChain.constraints.last)
     }
     
     public func width(c: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {

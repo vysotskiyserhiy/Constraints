@@ -11,17 +11,17 @@ import UIKit
 extension Constraint {
     public func xAnchor(_ anchor: NSLayoutXAxisAnchor, to anotherAnchor: NSLayoutXAxisAnchor, c: CGFloat = 0) -> Constraint {
         constraintsChain.constraints.append(anchor.constraint(equalTo: anotherAnchor, constant: c))
-        return self
+        return Constraint(view: view, superview: superview, constraintsChain: constraintsChain, constraint: constraintsChain.constraints.last)
     }
     
     public func yAnchor(_ anchor: NSLayoutYAxisAnchor, to anotherAnchor: NSLayoutYAxisAnchor, c: CGFloat = 0) -> Constraint {
         constraintsChain.constraints.append(anchor.constraint(equalTo: anotherAnchor, constant: c))
-        return self
+        return Constraint(view: view, superview: superview, constraintsChain: constraintsChain, constraint: constraintsChain.constraints.last)
     }
     
     public func dAnchor(_ anchor: NSLayoutDimension, c: CGFloat) -> Constraint {
         constraintsChain.constraints.append(anchor.constraint(equalToConstant: c))
-        return self
+        return Constraint(view: view, superview: superview, constraintsChain: constraintsChain, constraint: constraintsChain.constraints.last)
     }
 }
 
