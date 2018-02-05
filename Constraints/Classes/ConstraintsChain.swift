@@ -14,11 +14,10 @@ public class ConstraintsChain {
 
 // MARK: - Basic pin method
 extension ConstraintsChain {
-    public func pin(on s: UIView, attribute a1: NSLayoutAttribute, of v1: UIView, to a2: NSLayoutAttribute, of v2: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
+    public func pin(on s: UIView, attribute a1: NSLayoutAttribute, of v1: UIView, to a2: NSLayoutAttribute, of v2: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) {
         check(v1, on: s)
         v2.map { check($0, on: s) }
         constraints.append(NSLayoutConstraint(item: v1, attribute: a1, relatedBy: r, toItem: v2, attribute: a2, multiplier: m, constant: c))
-        return self
     }
     
     private func check(_ view: UIView, on superview: UIView) {
@@ -62,11 +61,19 @@ extension ConstraintsChain {
 // MARK: - Convenience constrainting methods
 extension ConstraintsChain {
     public func centerX(on s: UIView, views vs: [UIView], in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
-        return vs.reduce(self, { $0.pin(on: s, attribute: .centerX, of: $1, to: .centerX, of: p ?? s, r: .equal, c: c, m: m) })
+        vs.forEach { view in
+            pin(on: s, attribute: .centerX, of: view, to: .centerX, of: p ?? s, r: .equal, c: c, m: m)
+        }
+        
+        return self
     }
     
     public func centerY(on s: UIView, views vs: [UIView], in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
-        return vs.reduce(self, { $0.pin(on: s, attribute: .centerY, of: $1, to: .centerY, of: p ?? s, r: .equal, c: c, m: m) })
+        vs.forEach { view in
+            pin(on: s, attribute: .centerY, of: view, to: .centerY, of: p ?? s, r: .equal, c: c, m: m)
+        }
+        
+        return self
     }
     
     public func center(on s: UIView, views vs: [UIView], in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {

@@ -14,10 +14,11 @@ public extension UIView {
     }
 }
 
-public struct Constraint {
+public class Constraint {
     public let view: UIView
     public let superview: UIView
     public let constraintsChain: ConstraintsChain
+    public var constraint: NSLayoutConstraint?
     
     init(view: UIView, superview: UIView, constraintsChain: ConstraintsChain) {
         if superview !== view.superview, superview !== view {
@@ -49,10 +50,6 @@ extension Constraint {
     public func deactivateConstraint() {
         constraint?.isActive = false
     }
-    
-    public var constraint: NSLayoutConstraint? {
-        return constraintsChain.constraints.last
-    }
 }
 
 // MARK: - Chaining
@@ -69,8 +66,9 @@ extension Constraint {
 // MARK: - Constraint methods
 extension Constraint {
     public func pin(_ a1: NSLayoutAttribute, to a2: NSLayoutAttribute, of v2: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
-        _ = constraintsChain.pin(on: superview, attribute: a1, of: view, to: a2, of: v2, r: r, c: c, m: m)
-        return self
+        constraintsChain.pin(on: superview, attribute: a1, of: view, to: a2, of: v2, r: r, c: c, m: m)
+        constraint = constraintsChain.constraints.last
+        return Constraint(view: view, superview: superview, constraintsChain: constraintsChain)
     }
     
     public func width(c: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {

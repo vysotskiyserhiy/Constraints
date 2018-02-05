@@ -32,27 +32,27 @@ extension Constraint {
     }
     
     public func pin(same a: NSLayoutAttribute, as v: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
-        _ = constraintsChain.pin(on: superview, attribute: a, of: view, to: a, of: v, r: r, c: c, m: m)
+        constraintsChain.pin(on: superview, attribute: a, of: view, to: a, of: v, r: r, c: c, m: m)
         return self
     }
     
     public func pin(_ a: NSLayoutAttribute, toTopOf v: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
-        _ = constraintsChain.pin(on: superview, attribute: a, of: view, to: .top, of: v, r: r, c: c, m: m)
+        constraintsChain.pin(on: superview, attribute: a, of: view, to: .top, of: v, r: r, c: c, m: m)
         return self
     }
     
     public func pin(_ a: NSLayoutAttribute, toBottomOf v: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
-        _ = constraintsChain.pin(on: superview, attribute: a, of: view, to: .bottom, of: v, r: r, c: c, m: m)
+        constraintsChain.pin(on: superview, attribute: a, of: view, to: .bottom, of: v, r: r, c: c, m: m)
         return self
     }
     
     public func pin(_ a: NSLayoutAttribute, toLeftOf v: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
-        _ = constraintsChain.pin(on: superview, attribute: a, of: view, to: .left, of: v, r: r, c: c, m: m)
+        constraintsChain.pin(on: superview, attribute: a, of: view, to: .left, of: v, r: r, c: c, m: m)
         return self
     }
     
     public func pin(_ a: NSLayoutAttribute, toRightOf v: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
-        _ = constraintsChain.pin(on: superview, attribute: a, of: view, to: .right, of: v, r: r, c: c, m: m)
+        constraintsChain.pin(on: superview, attribute: a, of: view, to: .right, of: v, r: r, c: c, m: m)
         return self
     }
 }
