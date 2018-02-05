@@ -119,37 +119,45 @@ extension Constraint {
             .centerY(in: p, c: c.y)
     }
     
-    public func inset(left: CGFloat?, top: CGFloat?, right: CGFloat?, bottom: CGFloat?) -> Constraint {
-        var constraint = left.map { self.pin(.left, to: .left, of: superview, c: $0, m: 1) } ?? self
-        constraint = top.map { self.pin(.top, to: .top, of: superview, c: $0, m: 1) } ?? constraint
-        constraint = right.map { self.pin(.right, to: .right, of: superview, c: -$0, m: 1) } ?? constraint
-        constraint = bottom.map { self.pin(.bottom, to: .bottom, of: superview, c: -$0, m: 1) } ?? constraint
-        return constraint
-    }
-    
-    public func inset(insets: UIEdgeInsets) -> Constraint {
+    public func inset(insets: UIEdgeInsets, r: NSLayoutRelation = .equal) -> Constraint {
+        var rightBottomR = r
+        
+        if r == .greaterThanOrEqual {
+            rightBottomR = .lessThanOrEqual
+        } else if r == .lessThanOrEqual {
+            rightBottomR = .greaterThanOrEqual
+        }
+        
         return self
-            .pin(.left, to: .left, of: superview, c: insets.left)
-            .pin(.right, to: .right, of: superview, c: -insets.right)
-            .pin(.top, to: .top, of: superview, c: insets.top)
-            .pin(.bottom, to: .bottom, of: superview, c: -insets.bottom)
+            .pin(.left, to: .left, of: superview, r: r, c: insets.left)
+            .pin(.right, to: .right, of: superview, r: rightBottomR, c: -insets.right)
+            .pin(.top, to: .top, of: superview, r: r, c: insets.top)
+            .pin(.bottom, to: .bottom, of: superview, r: rightBottomR, c: -insets.bottom)
     }
     
-    public func pin(_ edges: Edge..., c: CGFloat = 0) -> Constraint {
+    public func pin(_ edges: Edge..., r: NSLayoutRelation = .equal, c: CGFloat = 0) -> Constraint {
         guard !edges.isEmpty else {
-            return inset(insets: UIEdgeInsetsMake(c, c, c, c))
+            return inset(insets: UIEdgeInsetsMake(c, c, c, c), r: r)
+        }
+        
+        var rightBottomR = r
+        
+        if r == .greaterThanOrEqual {
+            rightBottomR = .lessThanOrEqual
+        } else if r == .lessThanOrEqual {
+            rightBottomR = .greaterThanOrEqual
         }
         
         return edges.set.reduce(self) {
             switch $1 {
             case .left:
-                return $0.pin(.left, to: .left, of: superview, c: c)
+                return $0.pin(.left, to: .left, of: superview, r: r, c: c)
             case .top:
-                return $0.pin(.top, to: .top, of: superview, c: c)
+                return $0.pin(.top, to: .top, of: superview, r: r, c: c)
             case .right:
-                return $0.pin(.right, to: .right, of: superview, c: -c)
+                return $0.pin(.right, to: .right, of: superview, r: rightBottomR, c: -c)
             case .bottom:
-                return $0.pin(.bottom, to: .bottom, of: superview, c: -c)
+                return $0.pin(.bottom, to: .bottom, of: superview, r: rightBottomR, c: -c)
             }
         }
     }

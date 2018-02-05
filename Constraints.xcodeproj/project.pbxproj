@@ -26,7 +26,7 @@
 		2A68DAD81FF0F926005D3525 /* Constraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		2A68DAD91FF0F926005D3525 /* ConstraintsChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintsChain.swift; sourceTree = "<group>"; };
 		2A68DAE21FF0FB1F005D3525 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
-		2A68DAE31FF0FB1F005D3525 /* Constraints.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Constraints.podspec; sourceTree = SOURCE_ROOT; };
+		2A68DAE31FF0FB1F005D3525 /* Constraints.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Constraints.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2A68DAE41FF0FB1F005D3525 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		2AA7283E1FF2587800492B89 /* Constraint+NSLayoutAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constraint+NSLayoutAnchor.swift"; sourceTree = "<group>"; };
 		2ACCFCFC200D5DD700A0827D /* Constraint+ShortcutMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constraint+ShortcutMethods.swift"; sourceTree = "<group>"; };
