@@ -99,6 +99,10 @@ extension Constraint {
             .height(c: height, r: r, m: m)
     }
     
+    public func square() -> Constraint {
+        return self.pin(.width, to: .height, of: view)
+    }
+    
     public func square(to side: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
         return size(to: CGSize(width: side, height: side), r: r, m: m)
     }
