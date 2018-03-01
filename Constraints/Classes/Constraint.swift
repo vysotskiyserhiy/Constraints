@@ -99,7 +99,7 @@ extension Constraint {
             .height(c: height, r: r, m: m)
     }
     
-    public func square() -> Constraint {
+    public func makeSquare() -> Constraint {
         return self.pin(.width, to: .height, of: view)
     }
     
