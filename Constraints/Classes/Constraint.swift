@@ -14,7 +14,7 @@ public extension UIView {
     }
 }
 
-public class Constraint {
+public final class Constraint {
     public let view: UIView
     public let superview: UIView
     public let constraintsChain: ConstraintsChain
