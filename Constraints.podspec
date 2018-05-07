@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Constraints'
-  s.version          = '1.2.3'
+  s.version          = '1.2.4'
   s.summary          = 'Easy Swift programmatic constraints'
   s.homepage         = 'https://github.com/vysotskiyserhiy/Constraints'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
