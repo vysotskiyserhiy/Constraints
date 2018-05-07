@@ -16,7 +16,7 @@ public final class ConstraintsChain {
     }
 }
 
-private var scale: CGFloat = 1
+var scale: CGFloat = 1
 
 // MARK: - Basic pin method
 extension ConstraintsChain {

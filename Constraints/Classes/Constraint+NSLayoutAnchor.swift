@@ -49,6 +49,8 @@ extension Constraint {
 //    }
 //}
 
+public var safeMargins: UIEdgeInsets = .zero
+
 extension Constraint {
     public func safePin(_ edges: Edge..., c: CGFloat = 0) -> Constraint {
         if #available(iOS 11.0, *) {
@@ -72,22 +74,22 @@ extension Constraint {
             }
         } else {
             guard !edges.isEmpty else {
-                return pin(.left, to: .left, of: view, c: c)
-                    .pin(.top, to: .top, of: view, c: c)
-                    .pin(.right, to: .right, of: view, c: -c)
-                    .pin(.bottom, to: .bottom, of: view, c: -c)
+                return pin(.left, to: .left, of: superview, c: c + safeMargins.left)
+                    .pin(.top, to: .top, of: superview, c: c + safeMargins.top)
+                    .pin(.right, to: .right, of: superview, c: -c - safeMargins.right)
+                    .pin(.bottom, to: .bottom, of: superview, c: -c - safeMargins.bottom)
             }
             
             return edges.set.reduce(self) { constraint, edge in
                 switch edge {
                 case .left:
-                    return constraint.pin(.left, to: .left, of: view, c: c)
+                    return constraint.pin(.left, to: .left, of: superview, c: c + safeMargins.left)
                 case .top:
-                    return constraint.pin(.top, to: .top, of: view, c: c)
+                    return constraint.pin(.top, to: .top, of: superview, c: c + safeMargins.top)
                 case .right:
-                    return constraint.pin(.right, to: .right, of: view, c: -c)
+                    return constraint.pin(.right, to: .right, of: superview, c: -c - safeMargins.right)
                 case .bottom:
-                    return constraint.pin(.bottom, to: .bottom, of: view, c: -c)
+                    return constraint.pin(.bottom, to: .bottom, of: superview, c: -c - safeMargins.bottom)
                 }
             }
         }
