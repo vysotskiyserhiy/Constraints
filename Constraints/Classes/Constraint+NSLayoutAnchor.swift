@@ -10,17 +10,17 @@ import UIKit
 
 extension Constraint {
     public func xAnchor(_ anchor: NSLayoutXAxisAnchor, to anotherAnchor: NSLayoutXAxisAnchor, c: CGFloat = 0) -> Constraint {
-        constraintsChain.constraints.append(anchor.constraint(equalTo: anotherAnchor, constant: c))
+        constraintsChain.constraints.append(anchor.constraint(equalTo: anotherAnchor, constant: c * scale))
         return Constraint(view: view, superview: superview, constraintsChain: constraintsChain, constraint: constraintsChain.constraints.last)
     }
     
     public func yAnchor(_ anchor: NSLayoutYAxisAnchor, to anotherAnchor: NSLayoutYAxisAnchor, c: CGFloat = 0) -> Constraint {
-        constraintsChain.constraints.append(anchor.constraint(equalTo: anotherAnchor, constant: c))
+        constraintsChain.constraints.append(anchor.constraint(equalTo: anotherAnchor, constant: c * scale))
         return Constraint(view: view, superview: superview, constraintsChain: constraintsChain, constraint: constraintsChain.constraints.last)
     }
     
     public func dAnchor(_ anchor: NSLayoutDimension, c: CGFloat) -> Constraint {
-        constraintsChain.constraints.append(anchor.constraint(equalToConstant: c))
+        constraintsChain.constraints.append(anchor.constraint(equalToConstant: c * scale))
         return Constraint(view: view, superview: superview, constraintsChain: constraintsChain, constraint: constraintsChain.constraints.last)
     }
 }
@@ -37,13 +37,13 @@ extension Constraint {
 //        return newEdges.set.reduce(self) {
 //            switch $1 {
 //            case .left:
-//                return $0.xAnchor(view.leftAnchor, to: superview.safeAreaLayoutGuide.leftAnchor, c: c)
+//                return $0.xAnchor(view.leftAnchor, to: superview.safeAreaLayoutGuide.leftAnchor, c: c * scale)
 //            case .top:
-//                return $0.yAnchor(view.topAnchor, to: superview.safeAreaLayoutGuide.topAnchor, c: c)
+//                return $0.yAnchor(view.topAnchor, to: superview.safeAreaLayoutGuide.topAnchor, c: c * scale)
 //            case .right:
-//                return $0.xAnchor(view.rightAnchor, to: superview.safeAreaLayoutGuide.rightAnchor, c: -c)
+//                return $0.xAnchor(view.rightAnchor, to: superview.safeAreaLayoutGuide.rightAnchor, c: -c * scale)
 //            case .bottom:
-//                return $0.yAnchor(view.bottomAnchor, to: superview.safeAreaLayoutGuide.bottomAnchor, c: -c)
+//                return $0.yAnchor(view.bottomAnchor, to: superview.safeAreaLayoutGuide.bottomAnchor, c: -c * scale)
 //            }
 //        }
 //    }
@@ -63,13 +63,13 @@ extension Constraint {
             return newEdges.set.reduce(self) {
                 switch $1 {
                 case .left:
-                    return $0.xAnchor(view.leftAnchor, to: superview.safeAreaLayoutGuide.leftAnchor, c: c)
+                    return $0.xAnchor(view.leftAnchor, to: superview.safeAreaLayoutGuide.leftAnchor, c: c * scale)
                 case .top:
-                    return $0.yAnchor(view.topAnchor, to: superview.safeAreaLayoutGuide.topAnchor, c: c)
+                    return $0.yAnchor(view.topAnchor, to: superview.safeAreaLayoutGuide.topAnchor, c: c * scale)
                 case .right:
-                    return $0.xAnchor(view.rightAnchor, to: superview.safeAreaLayoutGuide.rightAnchor, c: -c)
+                    return $0.xAnchor(view.rightAnchor, to: superview.safeAreaLayoutGuide.rightAnchor, c: -c * scale)
                 case .bottom:
-                    return $0.yAnchor(view.bottomAnchor, to: superview.safeAreaLayoutGuide.bottomAnchor, c: -c)
+                    return $0.yAnchor(view.bottomAnchor, to: superview.safeAreaLayoutGuide.bottomAnchor, c: -c * scale)
                 }
             }
         } else {
