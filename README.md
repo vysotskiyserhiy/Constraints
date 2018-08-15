@@ -8,14 +8,15 @@
 
 ```swift
 func constraint() {
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = .lightGray
+
+    let backgroundView = UIView()
+    backgroundView.backgroundColor = .lightGray
         
-        // constraint
+    // constraint
         
-        backgroundView.constraint(on: view)
-            .pin()
-        .activate()
+    backgroundView.constraint(on: view)
+        .pin()
+    .activate()
                 
 }
 ```
