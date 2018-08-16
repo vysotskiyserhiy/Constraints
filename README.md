@@ -7,18 +7,23 @@
 ## Example
 
 ```swift
-func constraint() {
+// pinning and adding subviews
+        
+backgroundView.constraint(on: view)
+    .pin()
+.activate()
 
-    let backgroundView = UIView()
-    backgroundView.backgroundColor = .lightGray
-        
-    // constraint
-        
-    backgroundView.constraint(on: view)
-        .pin()
-    .activate()
-                
-}
+blueRect.constraint(on: view)
+    .height(c: 40)
+    .safePin(.left, .bottom)
+    .pin(.right, r: .lessThanOrEqual, c: 20)
+    .pin(.right, r: .greaterThanOrEqual, c: 5)
+.activate()
+
+centerSquare.constraint(on: view)
+    .center()
+    .square(to: 100)
+.activate()
 ```
 
 ## Installation
