@@ -32,12 +32,18 @@ public final class Constraint {
         self.constraintsChain = constraintsChain
         self.constraint = constraint
     }
+    
+    deinit {
+//        print("DEINIT CONSTRAINT")
+    }
 }
 
 // MARK: - Activate/Deactivate constraints
 extension Constraint {
-    public func activate() {
+    @discardableResult
+    public func activate() -> ConstraintsChain {
         constraintsChain.activate()
+        return constraintsChain
     }
     
     public func deactivate() {
@@ -66,34 +72,34 @@ extension Constraint {
 
 // MARK: - Constraint methods
 extension Constraint {
-    public func pin(_ a1: NSLayoutAttribute, to a2: NSLayoutAttribute, of v2: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
+    public func pin(_ a1: NSLayoutConstraint.Attribute, to a2: NSLayoutConstraint.Attribute, of v2: UIView?, r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
         constraintsChain.pin(on: superview, attribute: a1, of: view, to: a2, of: v2, r: r, c: c, m: m)
         return Constraint(view: view, superview: superview, constraintsChain: constraintsChain, constraint: constraintsChain.constraints.last)
     }
     
-    public func width(c: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
+    public func width(c: CGFloat, r: NSLayoutConstraint.Relation = .equal, m: CGFloat = 1) -> Constraint {
         return self
             .pin(.width, to: .width, of: nil, r: r, c: c, m: m)
     }
     
-    public func height(c: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
+    public func height(c: CGFloat, r: NSLayoutConstraint.Relation = .equal, m: CGFloat = 1) -> Constraint {
         return self
             .pin(.height, to: .height, of: nil, r: r, c: c, m: m)
     }
     
-    public func size(to size: CGSize, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
+    public func size(to size: CGSize, r: NSLayoutConstraint.Relation = .equal, m: CGFloat = 1) -> Constraint {
         return self
             .width(c: size.width, r: r, m: m)
             .height(c: size.height, r: r, m: m)
     }
     
-    public func size(to size: (width: CGFloat, height: CGFloat), r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
+    public func size(to size: (width: CGFloat, height: CGFloat), r: NSLayoutConstraint.Relation = .equal, m: CGFloat = 1) -> Constraint {
         return self
             .width(c: size.width, r: r, m: m)
             .height(c: size.height, r: r, m: m)
     }
     
-    public func size(width: CGFloat, height: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
+    public func size(width: CGFloat, height: CGFloat, r: NSLayoutConstraint.Relation = .equal, m: CGFloat = 1) -> Constraint {
         return self
             .width(c: width, r: r, m: m)
             .height(c: height, r: r, m: m)
@@ -103,7 +109,7 @@ extension Constraint {
         return self.pin(.width, to: .height, of: view)
     }
     
-    public func square(to side: CGFloat, r: NSLayoutRelation = .equal, m: CGFloat = 1) -> Constraint {
+    public func square(to side: CGFloat, r: NSLayoutConstraint.Relation = .equal, m: CGFloat = 1) -> Constraint {
         return size(to: CGSize(width: side, height: side), r: r, m: m)
     }
     
@@ -123,7 +129,7 @@ extension Constraint {
             .centerY(in: p, c: c.y)
     }
     
-    public func inset(insets: UIEdgeInsets, r: NSLayoutRelation = .equal) -> Constraint {
+    public func inset(insets: UIEdgeInsets, r: NSLayoutConstraint.Relation = .equal) -> Constraint {
         var rightBottomR = r
         
         if r == .greaterThanOrEqual {
@@ -139,9 +145,9 @@ extension Constraint {
             .pin(.bottom, to: .bottom, of: superview, r: rightBottomR, c: -insets.bottom)
     }
     
-    public func pin(_ edges: Edge..., r: NSLayoutRelation = .equal, c: CGFloat = 0) -> Constraint {
+    public func pin(_ edges: Edge..., r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0) -> Constraint {
         guard !edges.isEmpty else {
-            return inset(insets: UIEdgeInsetsMake(c, c, c, c), r: r)
+            return inset(insets: UIEdgeInsets(top: c, left: c, bottom: c, right: c), r: r)
         }
         
         var rightBottomR = r

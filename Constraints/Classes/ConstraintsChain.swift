@@ -14,13 +14,17 @@ public final class ConstraintsChain {
     public static func _setConstantsScale(_ newScale: CGFloat) {
         scale = newScale
     }
+    
+    deinit {
+//        print("DEINIT CONSTRAINTCHAIN")
+    }
 }
 
 var scale: CGFloat = 1
 
 // MARK: - Basic pin method
 extension ConstraintsChain {
-    public func pin(on s: UIView, attribute a1: NSLayoutAttribute, of v1: UIView, to a2: NSLayoutAttribute, of v2: UIView?, r: NSLayoutRelation = .equal, c: CGFloat = 0, m: CGFloat = 1) {
+    public func pin(on s: UIView, attribute a1: NSLayoutConstraint.Attribute, of v1: UIView, to a2: NSLayoutConstraint.Attribute, of v2: UIView?, r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0, m: CGFloat = 1) {
         check(v1, on: s)
         v2.map { check($0, on: s) }
         constraints.append(NSLayoutConstraint(item: v1, attribute: a1, relatedBy: r, toItem: v2, attribute: a2, multiplier: m, constant: c * scale))
