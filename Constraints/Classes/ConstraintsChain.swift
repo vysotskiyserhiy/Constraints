@@ -16,7 +16,8 @@ public final class ConstraintsChain {
     }
     
     deinit {
-//        print("DEINIT CONSTRAINTCHAIN")
+        let active = constraints.allSatisfy { $0.isActive }
+        if !active { activate() }
     }
 }
 

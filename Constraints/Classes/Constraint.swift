@@ -32,10 +32,6 @@ public final class Constraint {
         self.constraintsChain = constraintsChain
         self.constraint = constraint
     }
-    
-    deinit {
-//        print("DEINIT CONSTRAINT")
-    }
 }
 
 // MARK: - Activate/Deactivate constraints
