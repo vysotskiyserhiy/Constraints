@@ -52,6 +52,7 @@ extension Constraint {
 public var safeMargins: UIEdgeInsets = .zero
 
 extension Constraint {
+    @discardableResult
     public func safePin(_ edges: Edge..., c: CGFloat = 0) -> Constraint {
         if #available(iOS 11.0, *) {
             var newEdges = edges
