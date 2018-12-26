@@ -11,19 +11,16 @@
         
 backgroundView.constraint(on: view)
     .pin()
-.activate()
 
 blueRect.constraint(on: view)
     .height(c: 40)
-    .safePin(.left, .bottom)
-    .pin(.right, r: .lessThanOrEqual, c: 20)
-    .pin(.right, r: .greaterThanOrEqual, c: 5)
-.activate()
+    .safePin(.top, .left, .bottom)
+
 
 centerSquare.constraint(on: view)
     .center()
     .square(to: 100)
-.activate()
+    
 ```
 
 ## Installation
