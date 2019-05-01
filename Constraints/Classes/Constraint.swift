@@ -9,7 +9,7 @@
 import UIKit.UIView
 
 public extension UIView {
-    public func constraint(on superview: UIView) -> Constraint {
+    func constraint(on superview: UIView) -> Constraint {
         return Constraint(view: self, superview: superview, constraintsChain: ConstraintsChain())
     }
 }
