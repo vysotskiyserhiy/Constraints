@@ -25,20 +25,43 @@ var scale: CGFloat = 1
 
 // MARK: - Basic pin method
 extension ConstraintsChain {
+    @discardableResult
     public func pin(on s: UIView, attribute a1: NSLayoutConstraint.Attribute, of v1: UIView, to a2: NSLayoutConstraint.Attribute, of v2: UIView?, r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0, m: CGFloat = 1) {
-        check(v1, on: s)
-        v2.map { check($0, on: s) }
+        
+        if let v2 = v2 {
+            let shouldCheck = !doesHaveCommonSuperview(v1, v2)
+            check(v1, on: s, shouldCheckForSuperview: shouldCheck)
+            check(v2, on: s, shouldCheckForSuperview: shouldCheck)
+        } else {
+            check(v1, on: s, shouldCheckForSuperview: true)
+        }
+        
         constraints.append(NSLayoutConstraint(item: v1, attribute: a1, relatedBy: r, toItem: v2, attribute: a2, multiplier: m, constant: c * scale))
     }
     
-    private func check(_ view: UIView, on superview: UIView) {
-        if !(view.superview === superview || view === superview) {
+    private func check(_ view: UIView, on superview: UIView, shouldCheckForSuperview: Bool) {
+        if !(view.superview === superview || view === superview || !shouldCheckForSuperview) {
             superview.addSubview(view)
         }
         
         if view !== superview {
             view.translatesAutoresizingMaskIntoConstraints = false
         }
+    }
+    
+    private func doesHaveCommonSuperview(_ v1: UIView, _ v2: UIView) -> Bool {
+        let svids = { (view: UIView) -> Set<Int> in
+            var res = Set<Int>()
+            var sv = view.superview
+            while let hash = sv?.hashValue {
+                res.insert(hash)
+                sv = sv?.superview
+            }
+            
+            return res
+        }
+        
+        return !svids(v1).intersection(svids(v2)).isEmpty
     }
 }
 
@@ -71,6 +94,7 @@ extension ConstraintsChain {
 
 // MARK: - Convenience constrainting methods
 extension ConstraintsChain {
+    @discardableResult
     public func centerX(on s: UIView, views vs: [UIView], in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
         vs.forEach { view in
             pin(on: s, attribute: .centerX, of: view, to: .centerX, of: p ?? s, r: .equal, c: c, m: m)
@@ -79,6 +103,7 @@ extension ConstraintsChain {
         return self
     }
     
+    @discardableResult
     public func centerY(on s: UIView, views vs: [UIView], in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
         vs.forEach { view in
             pin(on: s, attribute: .centerY, of: view, to: .centerY, of: p ?? s, r: .equal, c: c, m: m)
@@ -87,6 +112,7 @@ extension ConstraintsChain {
         return self
     }
     
+    @discardableResult
     public func center(on s: UIView, views vs: [UIView], in p: UIView? = nil, c: CGFloat = 0, m: CGFloat = 1) -> ConstraintsChain {
         return centerX(on: s, views: vs, in: p, c: c, m: m)
             .centerY(on: s, views: vs, in: p, c: c, m: m)
