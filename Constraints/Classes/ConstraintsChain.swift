@@ -25,7 +25,6 @@ var scale: CGFloat = 1
 
 // MARK: - Basic pin method
 extension ConstraintsChain {
-    @discardableResult
     public func pin(on s: UIView, attribute a1: NSLayoutConstraint.Attribute, of v1: UIView, to a2: NSLayoutConstraint.Attribute, of v2: UIView?, r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0, m: CGFloat = 1) {
         
         if let v2 = v2 {
