@@ -108,11 +108,6 @@ extension Constraint {
     }
     
     @discardableResult
-    public func makeSquare() -> Constraint {
-        return self.pin(.width, to: .height, of: view)
-    }
-    
-    @discardableResult
     public func square(to side: CGFloat, r: NSLayoutConstraint.Relation = .equal, m: CGFloat = 1) -> Constraint {
         return size(to: CGSize(width: side, height: side), r: r, m: m)
     }
@@ -154,42 +149,42 @@ extension Constraint {
     }
     
     @discardableResult
-    public func pin(_ edges: Edge..., r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0) -> Constraint {
+    public func pin(_ edges: NSLayoutConstraint.Attribute..., r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0) -> Constraint {
         guard !edges.isEmpty else {
-            return inset(insets: UIEdgeInsets(top: c, left: c, bottom: c, right: c), r: r)
+            return pin(.leading, .trailing, .top, .bottom, r: r, c: c)
         }
         
-        var rightBottomR = r
-        
-        if r == .greaterThanOrEqual {
-            rightBottomR = .lessThanOrEqual
-        } else if r == .lessThanOrEqual {
-            rightBottomR = .greaterThanOrEqual
-        }
-        
-        return edges.set.reduce(self) {
-            switch $1 {
-            case .left:
-                return $0.pin(.left, to: .left, of: superview, r: r, c: c)
-            case .top:
-                return $0.pin(.top, to: .top, of: superview, r: r, c: c)
-            case .right:
-                return $0.pin(.right, to: .right, of: superview, r: rightBottomR, c: -c)
-            case .bottom:
-                return $0.pin(.bottom, to: .bottom, of: superview, r: rightBottomR, c: -c)
+        return edges.set.reduce(self) { (constraint, attribute) -> Constraint in
+            let constant: CGFloat
+            let relation: NSLayoutConstraint.Relation
+            
+            switch attribute {
+            case .right, .bottom, .trailing, .lastBaseline, .rightMargin, .bottomMargin, .trailingMargin:
+                constant = -c
+                switch r {
+                case .greaterThanOrEqual:
+                    relation = .lessThanOrEqual
+                case .lessThanOrEqual:
+                    relation = .greaterThanOrEqual
+                case .equal:
+                    relation = .equal
+                @unknown default:
+                    relation = r
+                }
+            default:
+                constant = c
+                relation = r
             }
+            
+            return constraint.pin(attribute, to: attribute, of: superview, r: relation, c: constant)
         }
-    }
-    
-    public enum Edge {
-        case left, top, right, bottom
     }
     
     @discardableResult
     public func frame(_ frame: CGRect) -> Constraint {
         return self
             .size(to: frame.size)
-            .pin(.left, to: .left, of: superview, c: frame.origin.x)
+            .pin(.leading, to: .leading, of: superview, c: frame.origin.x)
             .pin(.top, to: .top, of: superview, c: frame.origin.y)
     }
 }

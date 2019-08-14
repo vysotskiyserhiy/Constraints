@@ -11,8 +11,24 @@ public final class ConstraintsChain {
     public var constraints: [NSLayoutConstraint] = []
     public init() {}
     
-    public static func _setConstantsScale(_ newScale: CGFloat) {
-        scale = newScale
+    public static var constantsScale: CGFloat {
+        set {
+            scale = newValue
+        }
+        
+        get {
+            return scale
+        }
+    }
+    
+    public var safeAreaInsets: UIEdgeInsets {
+        set {
+            safeMargins = newValue
+        }
+        
+        get {
+            return safeMargins
+        }
     }
     
     deinit {
@@ -35,7 +51,8 @@ extension ConstraintsChain {
             check(v1, on: s, shouldCheckForSuperview: true)
         }
         
-        constraints.append(NSLayoutConstraint(item: v1, attribute: a1, relatedBy: r, toItem: v2, attribute: a2, multiplier: m, constant: c * scale))
+        let constraint = NSLayoutConstraint(item: v1, attribute: a1, relatedBy: r, toItem: v2, attribute: a2, multiplier: m, constant: c * scale)
+        constraints.append(constraint)
     }
     
     private func check(_ view: UIView, on superview: UIView, shouldCheckForSuperview: Bool) {

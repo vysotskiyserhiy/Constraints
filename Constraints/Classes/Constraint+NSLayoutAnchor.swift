@@ -139,56 +139,67 @@ extension Constraint {
     }
 }
 
-public var safeMargins: UIEdgeInsets = .undefined
-
+var safeMargins: UIEdgeInsets = .undefined
 extension Constraint {
+    public enum Edge: Int {
+        case left
+        case right
+        case top
+        case bottom
+        case leading
+        case trailing
+        
+        var attribute: NSLayoutConstraint.Attribute {
+            return NSLayoutConstraint.Attribute(rawValue: rawValue)!
+        }
+        
+        func constant(from insets: UIEdgeInsets) -> CGFloat {
+            switch self {
+            case .left, .leading:
+                return insets.left
+            case .right, .trailing:
+                return insets.right
+            case .top:
+                return insets.top
+            case .bottom:
+                return insets.bottom
+            }
+        }
+    }
+    
     @discardableResult
     public func safePin(_ edges: Edge..., r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0) -> Constraint {
+        guard !edges.isEmpty else {
+            return safePin(.leading, .top, .trailing, .bottom, r: r, c: c)
+        }
+        
         if #available(iOS 11.0, *) {
-            var newEdges = edges
-            
-            if edges.isEmpty {
-                newEdges = [.left, .top, .right, .bottom]
-            }
-            
-            return newEdges.set.reduce(self) { ct, edge in
+            return edges.set.reduce(self) { (constraint, edge) in
                 switch edge {
                 case .left:
-                    return ct.safeXAnchor(.left(view), to: .left(superview), r: r, c: c)
+                    return constraint.safeXAnchor(.left(view), to: .left(superview), r: r, c: c)
+                case .leading:
+                    return constraint.safeXAnchor(.leading(view), to: .leading(superview), r: r, c: c)
                 case .top:
-                    return ct.safeYAnchor(.top(view), to: .top(superview), r: r, c: c)
+                    return constraint.safeYAnchor(.top(view), to: .top(superview), r: r, c: c)
                 case .right:
-                    return ct.safeXAnchor(.right(view), to: .right(superview), r: r, c: -c)
+                    return constraint.safeXAnchor(.right(view), to: .right(superview), r: r, c: -c)
+                case .trailing:
+                    return constraint.safeXAnchor(.trailing(view), to: .trailing(superview), r: r, c: -c)
                 case .bottom:
-                    return ct.safeYAnchor(.bottom(view), to: .bottom(superview), r: r, c: -c)
+                    return constraint.safeYAnchor(.bottom(view), to: .bottom(superview), r: r, c: -c)
                 }
             }
             
             
         } else {
             if safeMargins == .undefined {
-                assertionFailure("Please specify safe margins 'safeMargins = UIEdgeInsets(...)'")
+                assertionFailure("Please specify safe margins 'ConstraintsChain.safeAreaInsets = UIEdgeInsets(...)'")
                 safeMargins = .zero
             }
             
-            guard !edges.isEmpty else {
-                return pin(.left, to: .left, of: superview, r: r, c: c + safeMargins.left)
-                    .pin(.top, to: .top, of: superview, r: r, c: c + safeMargins.top)
-                    .pin(.right, to: .right, of: superview, r: r, c: -c - safeMargins.right)
-                    .pin(.bottom, to: .bottom, of: superview, r: r, c: -c - safeMargins.bottom)
-            }
-            
-            return edges.set.reduce(self) { constraint, edge in
-                switch edge {
-                case .left:
-                    return constraint.pin(.left, to: .left, of: superview, r: r, c: c + safeMargins.left)
-                case .top:
-                    return constraint.pin(.top, to: .top, of: superview, r: r, c: c + safeMargins.top)
-                case .right:
-                    return constraint.pin(.right, to: .right, of: superview, r: r, c: -c - safeMargins.right)
-                case .bottom:
-                    return constraint.pin(.bottom, to: .bottom, of: superview, r: r, c: -c - safeMargins.bottom)
-                }
+            return edges.set.reduce(self) { (constraint, edge) in
+                return constraint.pin(edge.attribute, r: r, c: c + edge.constant(from: safeMargins))
             }
         }
     }
