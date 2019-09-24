@@ -35,6 +35,11 @@ public final class ConstraintsChain {
 var scale: CGFloat = 1
 var shouldRoundToPixelPerfect = false
 
+func makePixelPerfect(_ constant: CGFloat) -> CGFloat {
+    guard shouldRoundToPixelPerfect else { return constant }
+    return constant == 0 ? 0 : (constant < 0.5 ? 0.5 : constant.rounded())
+}
+
 // MARK: - Basic pin method
 extension ConstraintsChain {
     public func pin(on s: UIView, attribute a1: NSLayoutConstraint.Attribute, of v1: UIView, to a2: NSLayoutConstraint.Attribute, of v2: UIView?, r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0, m: CGFloat = 1) {
@@ -50,15 +55,6 @@ extension ConstraintsChain {
         let constant = shouldRoundToPixelPerfect ? makePixelPerfect(c * scale) : c * scale
         let constraint = NSLayoutConstraint(item: v1, attribute: a1, relatedBy: r, toItem: v2, attribute: a2, multiplier: m, constant: constant)
         constraints.append(constraint)
-    }
-    
-    private func makePixelPerfect(_ constant: CGFloat) -> CGFloat {
-        guard shouldRoundToPixelPerfect else { return constant }
-        if constant < 0.5 {
-            return 0.5
-        } else {
-            return constant.rounded()
-        }
     }
     
     private func check(_ view: UIView, on superview: UIView, shouldCheckForSuperview: Bool) {

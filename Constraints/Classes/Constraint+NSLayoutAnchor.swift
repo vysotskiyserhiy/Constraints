@@ -9,15 +9,6 @@
 import UIKit
 
 extension Constraint {
-    private func makePixelPerfect(_ constant: CGFloat) -> CGFloat {
-        guard shouldRoundToPixelPerfect else { return constant }
-        if constant < 0.5 {
-            return 0.5
-        } else {
-            return constant.rounded()
-        }
-    }
-    
     @discardableResult
     public func xAnchor(_ anchor: XAnchor, to anotherAnchor: XAnchor, r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0) -> Constraint {
         let constraint: NSLayoutConstraint
