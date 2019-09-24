@@ -37,7 +37,17 @@ var shouldRoundToPixelPerfect = false
 
 func makePixelPerfect(_ constant: CGFloat) -> CGFloat {
     guard shouldRoundToPixelPerfect else { return constant }
-    return constant == 0 ? 0 : (constant < 0.5 ? 0.5 : constant.rounded())
+    var result: CGFloat
+    switch constant {
+    case 0:
+        result = 0
+    case -0.5...0.5:
+        result = 0.5 * (constant / abs(constant))
+    default:
+        result = constant.rounded(.awayFromZero)
+    }
+    
+    return result
 }
 
 // MARK: - Basic pin method
