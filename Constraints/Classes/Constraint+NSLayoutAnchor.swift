@@ -9,16 +9,25 @@
 import UIKit
 
 extension Constraint {
+    private func makePixelPerfect(_ constant: CGFloat) -> CGFloat {
+        guard shouldRoundToPixelPerfect else { return constant }
+        if constant < 0.5 {
+            return 0.5
+        } else {
+            return constant.rounded()
+        }
+    }
+    
     @discardableResult
     public func xAnchor(_ anchor: XAnchor, to anotherAnchor: XAnchor, r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0) -> Constraint {
         let constraint: NSLayoutConstraint
         switch r {
         case .lessThanOrEqual:
-            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         case .equal:
-            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         case .greaterThanOrEqual:
-            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         @unknown default:
             fatalError()
         }
@@ -32,11 +41,11 @@ extension Constraint {
         let constraint: NSLayoutConstraint
         switch r {
         case .lessThanOrEqual:
-            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         case .equal:
-            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         case .greaterThanOrEqual:
-            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         @unknown default:
             fatalError()
         }
@@ -50,11 +59,11 @@ extension Constraint {
         let constraint: NSLayoutConstraint
         switch r {
         case .lessThanOrEqual:
-            constraint = anchor.anchor.constraint(lessThanOrEqualToConstant: c * scale)
+            constraint = anchor.anchor.constraint(lessThanOrEqualToConstant: makePixelPerfect(c * scale))
         case .equal:
-            constraint = anchor.anchor.constraint(equalToConstant: c * scale)
+            constraint = anchor.anchor.constraint(equalToConstant: makePixelPerfect(c * scale))
         case .greaterThanOrEqual:
-            constraint = anchor.anchor.constraint(greaterThanOrEqualToConstant: c * scale)
+            constraint = anchor.anchor.constraint(greaterThanOrEqualToConstant: makePixelPerfect(c * scale))
         @unknown default:
             fatalError()
         }
@@ -68,11 +77,11 @@ extension Constraint {
         let constraint: NSLayoutConstraint
         switch r {
         case .lessThanOrEqual:
-            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, multiplier: m, constant: c * scale)
+            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, multiplier: m, constant: makePixelPerfect(c * scale))
         case .equal:
-            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, multiplier: m, constant: c * scale)
+            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, multiplier: m, constant: makePixelPerfect(c * scale))
         case .greaterThanOrEqual:
-            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, multiplier: m, constant: c * scale)
+            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, multiplier: m, constant: makePixelPerfect(c * scale))
         @unknown default:
             fatalError()
         }
@@ -87,11 +96,11 @@ extension Constraint {
         let constraint: NSLayoutConstraint
         switch r {
         case .lessThanOrEqual:
-            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         case .equal:
-            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         case .greaterThanOrEqual:
-            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         @unknown default:
             fatalError()
         }
@@ -106,11 +115,11 @@ extension Constraint {
         let constraint: NSLayoutConstraint
         switch r {
         case .lessThanOrEqual:
-            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         case .equal:
-            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         case .greaterThanOrEqual:
-            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, constant: c * scale)
+            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, constant: makePixelPerfect(c * scale))
         @unknown default:
             fatalError()
         }
@@ -125,11 +134,11 @@ extension Constraint {
         let constraint: NSLayoutConstraint
         switch r {
         case .lessThanOrEqual:
-            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, multiplier: m, constant: c * scale)
+            constraint = anchor.anchor.constraint(lessThanOrEqualTo: anotherAnchor.anchor, multiplier: m, constant: makePixelPerfect(c * scale))
         case .equal:
-            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, multiplier: m, constant: c * scale)
+            constraint = anchor.anchor.constraint(equalTo: anotherAnchor.anchor, multiplier: m, constant: makePixelPerfect(c * scale))
         case .greaterThanOrEqual:
-            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, multiplier: m, constant: c * scale)
+            constraint = anchor.anchor.constraint(greaterThanOrEqualTo: anotherAnchor.anchor, multiplier: m, constant: makePixelPerfect(c * scale))
         @unknown default:
             fatalError()
         }

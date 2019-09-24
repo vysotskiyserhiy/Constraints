@@ -12,23 +12,18 @@ public final class ConstraintsChain {
     public init() {}
     
     public static var constantsScale: CGFloat {
-        set {
-            scale = newValue
-        }
-        
-        get {
-            return scale
-        }
+        set { scale = newValue }
+        get { scale }
+    }
+    
+    public static var isPixelPerfect: Bool {
+        set { shouldRoundToPixelPerfect = newValue }
+        get { shouldRoundToPixelPerfect }
     }
     
     public var safeAreaInsets: UIEdgeInsets {
-        set {
-            safeMargins = newValue
-        }
-        
-        get {
-            return safeMargins
-        }
+        set { safeMargins = newValue }
+        get { safeMargins }
     }
     
     deinit {
@@ -38,6 +33,7 @@ public final class ConstraintsChain {
 }
 
 var scale: CGFloat = 1
+var shouldRoundToPixelPerfect = false
 
 // MARK: - Basic pin method
 extension ConstraintsChain {
@@ -51,8 +47,18 @@ extension ConstraintsChain {
             check(v1, on: s, shouldCheckForSuperview: true)
         }
         
-        let constraint = NSLayoutConstraint(item: v1, attribute: a1, relatedBy: r, toItem: v2, attribute: a2, multiplier: m, constant: c * scale)
+        let constant = shouldRoundToPixelPerfect ? makePixelPerfect(c * scale) : c * scale
+        let constraint = NSLayoutConstraint(item: v1, attribute: a1, relatedBy: r, toItem: v2, attribute: a2, multiplier: m, constant: constant)
         constraints.append(constraint)
+    }
+    
+    private func makePixelPerfect(_ constant: CGFloat) -> CGFloat {
+        guard shouldRoundToPixelPerfect else { return constant }
+        if constant < 0.5 {
+            return 0.5
+        } else {
+            return constant.rounded()
+        }
     }
     
     private func check(_ view: UIView, on superview: UIView, shouldCheckForSuperview: Bool) {
