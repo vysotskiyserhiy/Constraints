@@ -16,6 +16,11 @@ extension Constraint {
     }
     
     @discardableResult
+    public func pin(same a: NSLayoutConstraint.Attribute..., as v: UIView?, r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
+        return a.reduce(self, { $0.pin(same: $1, as: v, r: r, c: c, m: m) })
+    }
+    
+    @discardableResult
     public func pin(_ a: NSLayoutConstraint.Attribute, toTopOf v: UIView?, r: NSLayoutConstraint.Relation = .equal, c: CGFloat = 0, m: CGFloat = 1) -> Constraint {
         constraintsChain.pin(on: superview, attribute: a, of: view, to: .top, of: v, r: r, c: c, m: m)
         return Constraint(view: view, superview: superview, constraintsChain: constraintsChain, constraint: constraintsChain.constraints.last)
