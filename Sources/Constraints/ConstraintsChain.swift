@@ -6,6 +6,8 @@
 //  Copyright © 2017 Serhiy Vysotskiy. All rights reserved.
 //
 
+import UIKit
+
 /// The very engine for constrainting
 public final class ConstraintsChain {
     public var constraints: [NSLayoutConstraint] = []
